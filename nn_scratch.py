@@ -30,21 +30,25 @@ np.random.seed(1)
 # Shape of weight tensor: 3 x 1
 weight_matrix = 2 * np.random.random((3, 1)) - 1
 
-for epoch in xrange(100000):
+for epoch in xrange(10000):
 
 	# Feed forward
 	input_layer = X
+	# probability_dist_of(weighted_input)
 	output_layer_hyp = nonlin(np.dot(input_layer, weight_matrix))
-	print(output_layer_hyp)
 
 	# Calculating loss
 	loss = y - output_layer_hyp
+	print(loss)
+	print('\n')
 
 	# Multiplying error by slope of
 	# sigmoid at output layer
+	# A.k.a Error weighted derivative
 	output_delta = loss * nonlin(output_layer_hyp, True)
 
 	# Updating weights
+	# Weight update step \ispropto{loss}
 	weight_matrix += np.dot(input_layer.T, output_delta)
 
 print("Output after training:")
